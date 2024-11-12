@@ -16,7 +16,7 @@ const App = () => (
     <CustomLayout>
       <Routes>
         <Route path="/landing" element={<LazyLanding />} />
-        <Route path="/page2" element={<LazyPage2 />} />
+        <Route path="/sign-in" element={<LazyPage2 />} />
         <Route path="/page3" element={<LazyPage3 />} />
         <Route
           path="*"
@@ -24,7 +24,7 @@ const App = () => (
         />
       </Routes>
     </CustomLayout>
-  </BrowserRouter >
+  </BrowserRouter>
 );
 
 // eslint-disable-next-line import/no-default-export

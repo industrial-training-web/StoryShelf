@@ -27,7 +27,7 @@ const CustomHeader = () => {
           <Link to="/your-list" className="hover:underline">Your List</Link>
         </nav>
         <div className="justify-end">
-        <Button className="bg-[#fdc57b] text-white border-none text-center" shape="round" onClick={() => navigate('/learn-to-code')}>
+        <Button className="bg-[#fdc57b] text-white border-none text-center" shape="round" onClick={() => navigate('/sign-in')}>
           Sign In
         </Button>
         </div>

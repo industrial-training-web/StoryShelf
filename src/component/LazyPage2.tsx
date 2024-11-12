@@ -1,6 +1,6 @@
 import React, { lazy, Suspense } from 'react';
 
-const Page2 = lazy(() => import('./Page2'));
+const Page2 = lazy(() => import('./SignIn'));
 
 const LazyPage2 = () => (
   <Suspense fallback={<div>Loading...</div>}>
