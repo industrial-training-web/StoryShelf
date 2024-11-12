@@ -6,7 +6,7 @@ import { Button, Form, Input } from 'antd';
 import { FcGoogle } from 'react-icons/fc';
 import { FaGithub } from 'react-icons/fa';
 
-const Signin: React.FC = () => (
+const Signup: React.FC = () => (
   <div
     style={{
       display: 'flex',
@@ -31,7 +31,7 @@ const Signin: React.FC = () => (
       <div style={{ flex: 1, marginRight: '2rem' }}>
         <img
           src="https://i.postimg.cc/zXb7snLY/old-books-436498-1280.jpg"
-          alt="books"
+          alt="Cat in a box"
           style={{ maxWidth: '100%', borderRadius: 8 }}
         />
       </div>
@@ -39,10 +39,10 @@ const Signin: React.FC = () => (
       {/* Right side form */}
       <div style={{ flex: 1, maxWidth: 400 }}>
         <p style={{ textAlign: 'center', fontSize: '1.5rem', color: '#555' }}>
-          Welcome back!
+          Create an Account
         </p>
 
-        {/* Social login buttons */}
+        {/* Social signup buttons */}
         <div
           style={{
             display: 'flex',
@@ -55,21 +55,29 @@ const Signin: React.FC = () => (
             icon={<FcGoogle />}
             shape="circle"
             size="large"
-            onClick={() => console.log('Sign in with Google')}
+            onClick={() => console.log('Sign up with Google')}
           />
           <Button
             icon={<FaGithub />}
             shape="circle"
             size="large"
-            onClick={() => console.log('Sign in with GitHub')}
+            onClick={() => console.log('Sign up with GitHub')}
           />
         </div>
 
         <p style={{ textAlign: 'center', color: '#aaa' }}>
-          OR LOGIN WITH EMAIL
+          OR SIGN UP WITH EMAIL
         </p>
 
         <Form layout="vertical" style={{ marginTop: '1rem' }}>
+          <Form.Item
+            label="Name"
+            name="name"
+            rules={[{ required: true, message: 'Please enter your name!' }]}
+          >
+            <Input placeholder="Enter your name" />
+          </Form.Item>
+
           <Form.Item
             label="Email"
             name="email"
@@ -96,17 +104,17 @@ const Signin: React.FC = () => (
                 borderColor: '#fdbf50',
               }}
             >
-              Log In
+              Sign Up
             </Button>
           </Form.Item>
         </Form>
 
         <div style={{ textAlign: 'center', marginTop: '1rem' }}>
           <a
-            href="StoryShelf/sign-up"
+            href="/sign-in"
             style={{ color: '#555', textDecoration: 'underline' }}
           >
-            New Here? Register Here
+            Already have an account? Log In
           </a>
         </div>
       </div>
@@ -114,4 +122,4 @@ const Signin: React.FC = () => (
   </div>
 );
 
-export default Signin;
+export default Signup;

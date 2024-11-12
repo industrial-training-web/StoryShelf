@@ -1,11 +1,11 @@
 import React, { lazy, Suspense } from 'react';
 
-const Page3 = lazy(() => import('./AddBook'));
+const SignUp = lazy(() => import('./SignUp'));
 
-const LazyPage3 = () => (
+const LazySignUp = () => (
   <Suspense fallback={<div>Loading...</div>}>
-    <Page3 />
+    <SignUp />
   </Suspense>
 );
 
-export { LazyPage3 };
+export { LazySignUp };
