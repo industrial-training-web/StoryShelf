@@ -92,8 +92,8 @@ const Signin: React.FC = () => (
               htmlType="submit"
               style={{
                 width: '100%',
-                backgroundColor: '#fdbf50',
-                borderColor: '#fdbf50',
+                backgroundColor: '#fdc57b',
+                borderColor: '#fdc57b',
               }}
             >
               Log In
