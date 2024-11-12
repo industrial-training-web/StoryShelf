@@ -11,7 +11,7 @@ import { LazyLanding } from './component/landing/LazyLanding';
 import { LazyPage2 } from './component/LazyPage2';
 import { LazyPage3 } from './component/LazyPage3';
 import { LazySignUp } from './component/LazySignUp';
-
+import  {LazyYourList} from './component/lazyYourList'
 const App = () => (
   <BrowserRouter basename="/StoryShelf">
     <CustomLayout>
@@ -20,6 +20,7 @@ const App = () => (
         <Route path="/sign-in" element={<LazyPage2 />} />
         <Route path="/sign-up" element={<LazySignUp />} />
         <Route path="/add-book" element={<LazyPage3 />} />
+        <Route path="/your-list" element={<LazyYourList />} />
         <Route
           path="*"
           element={<Navigate to="/landing" replace />}

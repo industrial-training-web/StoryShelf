@@ -2,7 +2,8 @@
 /* eslint-disable import/no-default-export */
 /* eslint-disable @typescript-eslint/no-unused-vars */
 import React from 'react';
-import { Button, Form, Input } from 'antd';
+import { Button, Form, Input, Upload } from 'antd';
+import { UploadOutlined } from '@ant-design/icons';
 
 const AddBook: React.FC = () => (
   <div
@@ -56,7 +57,20 @@ const AddBook: React.FC = () => (
           >
             <Input placeholder="Enter the writer's name" />
           </Form.Item>
-
+          <Form.Item
+        label="Book Image"
+        name="bookImage"
+        valuePropName="fileList"
+        rules={[{ required: true, message: 'Please upload the book image!' }]}
+      >
+        <Upload
+          name="bookImage"
+          listType="picture"
+          beforeUpload={() => false} // Prevent automatic upload
+        >
+          <Button icon={<UploadOutlined />}>Upload Book Image</Button>
+        </Upload>
+      </Form.Item>
           <Form.Item
             label="Description"
             name="description"
