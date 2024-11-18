@@ -27,7 +27,6 @@ const Signup: React.FC = () => (
         maxWidth: 800,
       }}
     >
-      {/* Left side image */}
       <div style={{ flex: 1, marginRight: '2rem' }}>
         <img
           src="https://i.postimg.cc/zXb7snLY/old-books-436498-1280.jpg"

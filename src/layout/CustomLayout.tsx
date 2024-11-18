@@ -41,7 +41,7 @@ const CustomFooter = () => (
   <div style={{ textAlign: 'center' }}>
     <div>
       { /* @ts-ignore */}
-      {/* {__HEAD_COMMIT_HASH__ ? `Trace: ${__HEAD_COMMIT_HASH__}` : ''} */}
+       {__HEAD_COMMIT_HASH__ ? `Trace: ${__HEAD_COMMIT_HASH__}` : ''}
     </div>
     <div>
       &copy; {new Date().getFullYear()} - Industrial Training Web

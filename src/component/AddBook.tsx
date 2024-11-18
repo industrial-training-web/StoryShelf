@@ -1,6 +1,4 @@
-/* eslint-disable no-console */
 /* eslint-disable import/no-default-export */
-/* eslint-disable @typescript-eslint/no-unused-vars */
 import React from 'react';
 import { Button, Form, Input, Upload } from 'antd';
 import { UploadOutlined } from '@ant-design/icons';
@@ -41,7 +39,14 @@ const AddBook: React.FC = () => (
           Add a New Book
         </p>
 
-        <Form layout="vertical" style={{ marginTop: '1rem' }}>
+        <Form
+          layout="vertical"
+          style={{ marginTop: '1rem' }}
+          onFinish={(values) => {
+            // Handle form submission
+            console.log('Form submitted:', values);
+          }}
+        >
           <Form.Item
             label="Book Name"
             name="bookName"
@@ -57,20 +62,22 @@ const AddBook: React.FC = () => (
           >
             <Input placeholder="Enter the writer's name" />
           </Form.Item>
+
           <Form.Item
-        label="Book Image"
-        name="bookImage"
-        valuePropName="fileList"
-        rules={[{ required: true, message: 'Please upload the book image!' }]}
-      >
-        <Upload
-          name="bookImage"
-          listType="picture"
-          beforeUpload={() => false} // Prevent automatic upload
-        >
-          <Button icon={<UploadOutlined />}>Upload Book Image</Button>
-        </Upload>
-      </Form.Item>
+            label="Book Image"
+            name="bookImage"
+            valuePropName="fileList"
+            rules={[{ required: true, message: 'Please upload the book image!' }]}
+          >
+            <Upload
+              name="bookImage"
+              listType="picture"
+              beforeUpload={() => false}
+            >
+              <Button icon={<UploadOutlined />}>Upload Book Image</Button>
+            </Upload>
+          </Form.Item>
+
           <Form.Item
             label="Description"
             name="description"
@@ -93,10 +100,8 @@ const AddBook: React.FC = () => (
             </Button>
           </Form.Item>
         </Form>
-
       </div>
     </div>
   </div>
 );
-
 export default AddBook;

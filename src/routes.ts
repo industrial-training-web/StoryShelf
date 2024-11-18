@@ -14,7 +14,7 @@ const LazyPage2 = React.lazy(() =>
 );
 const LazyPage3 = React.lazy(() =>
   import('./component/LazyPage3').then((module) => ({
-    default: module.LazyPage3,
+    default: module.Addbook,
   })),
 );
 const LazySignUp = React.lazy(() =>
