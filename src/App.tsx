@@ -1,17 +1,12 @@
 import React from 'react';
-import {
-  BrowserRouter,
-  Routes,
-  Route,
-  Navigate,
-} from 'react-router-dom';
-
+import { BrowserRouter, Routes, Route, Navigate } from 'react-router-dom';
 import { CustomLayout } from './layout/CustomLayout';
 import { LazyLanding } from './component/landing/LazyLanding';
 import { LazyPage2 } from './component/LazyPage2';
 import { LazyPage3 } from './component/LazyPage3';
 import { LazySignUp } from './component/LazySignUp';
-import  {LazyYourList} from './component/lazyYourList'
+import { LazyYourList } from './component/LazyYourList';
+
 const App = () => (
   <BrowserRouter basename="/StoryShelf">
     <CustomLayout>
@@ -21,10 +16,7 @@ const App = () => (
         <Route path="/sign-up" element={<LazySignUp />} />
         <Route path="/add-book" element={<LazyPage3 />} />
         <Route path="/your-list" element={<LazyYourList />} />
-        <Route
-          path="*"
-          element={<Navigate to="/landing" replace />}
-        />
+        <Route path="*" element={<Navigate to="/landing" replace />} />
       </Routes>
     </CustomLayout>
   </BrowserRouter>
