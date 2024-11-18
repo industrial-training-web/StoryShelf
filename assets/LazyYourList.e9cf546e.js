@@ -1,0 +1,1 @@
+import{r as o,_ as s,j as r}from"./index.29154cc1.js";const t=o.exports.lazy(()=>s(()=>import("./YourList.8bf8f5b7.js"),["assets/YourList.8bf8f5b7.js","assets/index.29154cc1.js","assets/index.f7687331.css","assets/AntdIcon.72d47884.js"])),a=()=>r(o.exports.Suspense,{fallback:r("div",{children:"Loading..."}),children:r(t,{})});export{a as LazyYourList};
