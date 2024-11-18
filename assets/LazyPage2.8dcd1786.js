@@ -1,1 +1,0 @@
-import{r as a,_ as r,j as e}from"./index.29154cc1.js";const o=a.exports.lazy(()=>r(()=>import("./SignIn.1eb0688d.js"),["assets/SignIn.1eb0688d.js","assets/index.c59d24f1.js","assets/index.29154cc1.js","assets/index.f7687331.css","assets/index.858b3565.js"])),t=()=>e(a.exports.Suspense,{fallback:e("div",{children:"Loading..."}),children:e(o,{})});export{t as LazyPage2};
