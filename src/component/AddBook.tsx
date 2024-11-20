@@ -3,7 +3,7 @@ import React from 'react';
 import { Button, Form, Input, Upload } from 'antd';
 import { UploadOutlined } from '@ant-design/icons';
 
-const AddBook: React.FC = () => (
+const AddBook = () => (
   <div
     style={{
       display: 'flex',
@@ -104,4 +104,5 @@ const AddBook: React.FC = () => (
     </div>
   </div>
 );
+
 export default AddBook;
