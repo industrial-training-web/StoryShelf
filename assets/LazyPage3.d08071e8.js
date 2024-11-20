@@ -1,1 +1,0 @@
-import{r,_ as e,j as o}from"./index.f3873518.js";const d=r.exports.lazy(()=>e(()=>import("./AddBook.99ba5e69.js"),["assets/AddBook.99ba5e69.js","assets/index.f3873518.js","assets/index.f7687331.css","assets/index.68f1a066.js","assets/AntdIcon.8e3c6add.js"])),t=()=>o(r.exports.Suspense,{fallback:o("div",{children:"Loading..."}),children:o(d,{})});export{t as Addbook};

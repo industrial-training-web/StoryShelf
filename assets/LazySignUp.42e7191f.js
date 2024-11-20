@@ -1,1 +1,0 @@
-import{r as e,_ as o,j as r}from"./index.f3873518.js";const a=e.exports.lazy(()=>o(()=>import("./SignUp.68a06703.js"),["assets/SignUp.68a06703.js","assets/index.7755d6bf.js","assets/index.f3873518.js","assets/index.f7687331.css","assets/index.68f1a066.js"])),s=()=>r(e.exports.Suspense,{fallback:r("div",{children:"Loading..."}),children:r(a,{})});export{s as LazySignUp};

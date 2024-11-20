@@ -1,0 +1,1 @@
+import{r,_ as e,j as a}from"./index.f5444eae.js";const o=r.exports.lazy(()=>e(()=>import("./Landing.70000ffa.js"),["assets/Landing.70000ffa.js","assets/Landing.42483db5.css","assets/index.f5444eae.js","assets/index.f7687331.css"])),n=()=>a(r.exports.Suspense,{fallback:a("div",{children:"Loading..."}),children:a(o,{})});export{n as LazyLanding};
