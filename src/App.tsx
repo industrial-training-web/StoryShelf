@@ -1,30 +1,23 @@
 import React from 'react';
-import {
-  BrowserRouter,
-  Routes,
-  Route,
-  Navigate,
-} from 'react-router-dom';
-
+import { BrowserRouter, Routes, Route, Navigate } from 'react-router-dom';
 import { CustomLayout } from './layout/CustomLayout';
-import { LazyLanding } from './component/landing/LazyLanding';
-import { LazyPage2 } from './component/LazyPage2';
-import { LazyPage3 } from './component/LazyPage3';
+import { routes } from './routes';
 
 const App = () => (
   <BrowserRouter basename="/StoryShelf">
     <CustomLayout>
-      <Routes>
-        <Route path="/landing" element={<LazyLanding />} />
-        <Route path="/page2" element={<LazyPage2 />} />
-        <Route path="/page3" element={<LazyPage3 />} />
-        <Route
-          path="*"
-          element={<Navigate to="/landing" replace />}
-        />
-      </Routes>
+      <React.Suspense fallback={<div>Loading...</div>}>
+        <Routes>
+          <Route path={routes.landing.path} element={<routes.landing.element />} />
+          <Route path={routes.signIn.path} element={<routes.signIn.element />} />
+          <Route path={routes.signUp.path} element={<routes.signUp.element />} />
+          <Route path={routes.addBook.path} element={<routes.addBook.element />} />
+          <Route path={routes.yourList.path} element={<routes.yourList.element />} />
+          <Route path="*" element={<Navigate to={routes.landing.path} replace />} />
+        </Routes>
+      </React.Suspense>
     </CustomLayout>
-  </BrowserRouter >
+  </BrowserRouter>
 );
 
 // eslint-disable-next-line import/no-default-export
