@@ -34,34 +34,51 @@ const YourList: React.FC = () => {
     console.log('Update book with id:', id);
   };
 
-  const handleDelete = async (id: number) => {
-    try {
-      const { data } = await axios.delete(
-        `${import.meta.env.VITE_API_URL}/books/${id}`
-      );
-      if (data.success) {
-        setItems((prev) => prev.filter((item) => item.id !== id));
+  const handleDelete = async (_id: number) => {
+    const confirmResult = await Swal.fire({
+      title: 'Are you sure?',
+      text: 'Do you really want to delete this book? This action cannot be undone!',
+      icon: 'warning',
+      showCancelButton: true,
+      confirmButtonColor: '#d33',
+      cancelButtonColor: '#3085d6',
+      confirmButtonText: 'Yes, delete it!',
+      cancelButtonText: 'No, cancel!',
+    });
+    if (confirmResult.isConfirmed) {
+      try {
+        const { data } = await axios.delete(
+          `${import.meta.env.VITE_API_URL}/books/${_id}`,
+        );
+        if (data.success) {
+          setItems((prev) => prev.filter((item) => item.id !== _id));
+          Swal.fire({
+            title: 'Deleted!',
+            text: 'Book deleted successfully!',
+            icon: 'success',
+            confirmButtonText: 'Okay',
+          });
+        }
+      } catch (error) {
+        console.error('Failed to delete book:', error);
         Swal.fire({
-          title: 'Success',
-          text: 'Book deleted successfully!',
-          icon: 'success',
+          title: 'Error',
+          text: 'Failed to delete the book!',
+          icon: 'error',
           confirmButtonText: 'Okay',
         });
       }
-    } catch (error) {
-      console.error('Failed to delete book:', error);
+    } else {
       Swal.fire({
-        title: 'Error',
-        text: 'Failed to delete book!',
-        icon: 'error',
+        title: 'Cancelled',
+        text: 'Book deletion was cancelled.',
+        icon: 'info',
         confirmButtonText: 'Okay',
       });
     }
   };
-
   const onSearch = (value: string) => {
     console.log('Search value:', value);
-    // You can implement search functionality here
   };
 
   return (
@@ -151,7 +168,8 @@ const YourList: React.FC = () => {
                   type="primary"
                   danger
                   icon={<DeleteOutlined />}
-                  onClick={() => handleDelete(book.id)}
+                  // eslint-disable-next-line no-underscore-dangle
+                  onClick={() => handleDelete(book._id)}
                 >
                   Delete
                 </Button>
