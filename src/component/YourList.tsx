@@ -115,7 +115,8 @@ const YourList: React.FC = () => {
                   alt={book.bookName}
                   src={book.image}
                   style={{
-                    width: '100%',
+                    width: '400px',
+                    height: '400px',
                     borderRadius: '12px',
                     objectFit: 'cover',
                   }}
