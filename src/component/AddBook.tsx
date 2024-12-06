@@ -1,23 +1,27 @@
-import React from 'react';
+import React, { useContext, useEffect } from 'react';
 import { Button, Form, Input, Upload } from 'antd';
 import { UploadOutlined } from '@ant-design/icons';
 import axios from 'axios';
 import Swal from 'sweetalert2';
+import { AuthContext } from '../firebaseprovider/FirebaseProvider';
 
-// Define the type for form values
 type AddBookFormValues = {
   bookName: string;
   writerName: string;
   description: string;
   bookImage: { originFileObj: File }[];
+  userEmail: string;
 };
 
 const AddBook: React.FC = () => {
+  const { user } = useContext(AuthContext) || {};
+  useEffect(() => {
+    console.log('User Data:', user);
+  }, [user]);
   const handleAddBook = async (values: AddBookFormValues) => {
     const { bookName, writerName, description, bookImage } = values;
 
     try {
-      // Extract the file object
       const uploadedFile = bookImage[0]?.originFileObj;
 
       if (!uploadedFile) {
@@ -30,7 +34,6 @@ const AddBook: React.FC = () => {
         return;
       }
 
-      // Convert file to base64
       const toBase64 = (file: File) =>
         new Promise<string>((resolve, reject) => {
           const reader = new FileReader();
@@ -41,12 +44,12 @@ const AddBook: React.FC = () => {
 
       const imageBase64 = await toBase64(uploadedFile);
 
-      // Create the book object
       const newBook = {
         bookName,
         writerName,
         description,
         image: imageBase64,
+        userEmail: user?.email || 'N/A',
       };
 
       // Send data to the API
@@ -80,7 +83,6 @@ const AddBook: React.FC = () => {
         display: 'flex',
         justifyContent: 'center',
         alignItems: 'center',
-        height: '100vh',
         backgroundColor: '#f5f5f5',
       }}
     >
@@ -93,6 +95,7 @@ const AddBook: React.FC = () => {
           borderRadius: 8,
           padding: '2rem',
           maxWidth: 800,
+          margin: '20px',
         }}
       >
         {/* Left side image */}
@@ -112,8 +115,12 @@ const AddBook: React.FC = () => {
 
           <Form
             layout="vertical"
-            style={{ marginTop: '1rem' }}
+            style={{ margin: '20px' }}
             onFinish={handleAddBook}
+            initialValues={{
+              userName: user?.displayName || '',
+              userEmail: user?.email || '',
+            }}
           >
             <Form.Item
               label="Book Name"
@@ -155,6 +162,10 @@ const AddBook: React.FC = () => {
               rules={[{ required: true, message: 'Please enter a description!' }]}
             >
               <Input.TextArea placeholder="Enter the description" rows={4} />
+            </Form.Item>
+
+            <Form.Item label="User Email" name="userEmail">
+              <Input readOnly />
             </Form.Item>
 
             <Form.Item>
