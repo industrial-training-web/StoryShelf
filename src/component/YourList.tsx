@@ -1,35 +1,44 @@
 /* eslint-disable no-underscore-dangle */
-/* eslint-disable no-console */
-import React, { useEffect, useState } from 'react';
+import React, { useContext, useEffect, useState } from 'react';
 import { Card, Button, Input } from 'antd';
 import { EditOutlined, DeleteOutlined } from '@ant-design/icons';
-import axios from 'axios';
 import Swal from 'sweetalert2';
+import { AuthContext } from '../firebaseprovider/FirebaseProvider';
 
 const { Search } = Input;
-const { Meta } = Card;
 
 const YourList: React.FC = () => {
   const [books, setBooks] = useState<any[]>([]);
+  const { user } = useContext(AuthContext) || {};
+  const [filteredBooks, setFilteredBooks] = useState<any[]>([]);
 
   useEffect(() => {
-    const getData = async () => {
-      try {
-        const { data } = await axios(`${import.meta.env.VITE_API_URL}/books`);
-        setBooks(data);
-      } catch (error) {
-        console.error('Failed to fetch books:', error);
-        Swal.fire({
-          title: 'Error',
-          text: 'Failed to load books!',
-          icon: 'error',
-          confirmButtonText: 'Okay',
+    console.log('User Data:', user);
+  }, [user]);
+  useEffect(() => {
+    if (user?.email) {
+      fetch(`${import.meta.env.VITE_API_URL}/books/${user.email}`)
+        .then((res) => {
+          if (!res.ok) {
+            throw new Error('Failed to fetch books');
+          }
+          return res.json();
+        })
+        .then((data) => {
+          setBooks(data);
+          setFilteredBooks(data); // Initially show all books
+        })
+        .catch((error) => {
+          console.error('Failed to fetch books:', error);
+          Swal.fire({
+            title: 'Error',
+            text: 'Failed to load books!',
+            icon: 'error',
+            confirmButtonText: 'Okay',
+          });
         });
-      }
-    };
-
-    getData();
-  }, []);
+    }
+  }, [user]);
 
   const handleUpdate = (id: number) => {
     console.log('Update book with id:', id);
@@ -46,19 +55,26 @@ const YourList: React.FC = () => {
       confirmButtonText: 'Yes, delete it!',
       cancelButtonText: 'No, cancel!',
     });
+
     if (confirmResult.isConfirmed) {
       try {
-        const { data } = await axios.delete(
-          `${import.meta.env.VITE_API_URL}/books/${_id}`,
-        );
-        if (data.success) {
-          setBooks((prev) => prev.filter((book) => book.id !== _id));
-          Swal.fire({
-            title: 'Deleted!',
-            text: 'Book deleted successfully!',
-            icon: 'success',
-            confirmButtonText: 'Okay',
-          });
+        const response = await fetch(`${import.meta.env.VITE_API_URL}/books/${_id}`, {
+          method: 'DELETE',
+        });
+
+        if (response.ok) {
+          const result = await response.json();
+          if (result.success) {
+            setBooks((prev) => prev.filter((book) => book._id !== _id));
+            Swal.fire({
+              title: 'Deleted!',
+              text: 'Book deleted successfully!',
+              icon: 'success',
+              confirmButtonText: 'Okay',
+            });
+          }
+        } else {
+          throw new Error('Failed to delete the book');
         }
       } catch (error) {
         console.error('Failed to delete book:', error);
@@ -78,21 +94,16 @@ const YourList: React.FC = () => {
       });
     }
   };
-  const onSearch = (value: string) => {
-    console.log('Search value:', value);
-  };
 
   return (
     <div style={{ padding: '2rem' }}>
       {/* Search Input */}
       <Search
         placeholder="Search books"
-        onSearch={onSearch}
         enterButton
         style={{ marginBottom: '2rem' }}
       />
 
-      {/* Books List */}
       <div
         style={{
           display: 'flex',
@@ -102,7 +113,7 @@ const YourList: React.FC = () => {
       >
         {books.map((book) => (
           <Card
-            key={book.id}
+            key={book._id}
             hoverable
             style={{
               width: 380,
