@@ -1,4 +1,3 @@
-// src/routes.ts
 import React from 'react';
 
 // Lazy import with named exports
