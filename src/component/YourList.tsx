@@ -1,40 +1,84 @@
 /* eslint-disable no-console */
-import React from 'react';
+import React, { useEffect, useState } from 'react';
 import { Card, Button, Input } from 'antd';
 import { EditOutlined, DeleteOutlined } from '@ant-design/icons';
+import axios from 'axios';
+import Swal from 'sweetalert2';
 
 const { Search } = Input;
 const { Meta } = Card;
 
-const onSearch = (value: string) => {
-  console.log('Search value:', value);
-};
-
 const YourList: React.FC = () => {
-  // Sample books data
-  const books = [
-    {
-      id: 1,
-      bookName: 'Book Title 1',
-      writerName: 'Author 1',
-      description: 'Description of the book 1',
-      coverImage: 'https://i.postimg.cc/sgxNjwVn/book-4600757-1280.jpg',
-    },
-    {
-      id: 2,
-      bookName: 'Book Title 2',
-      writerName: 'Author 2',
-      description: 'Description of the book 2',
-      coverImage: 'https://i.postimg.cc/sgxNjwVn/book-4600757-1280.jpg',
-    },
-  ];
+  const [items, setItems] = useState<any[]>([]);
+
+  useEffect(() => {
+    const getData = async () => {
+      try {
+        const { data } = await axios(`${import.meta.env.VITE_API_URL}/books`);
+        setItems(data);
+      } catch (error) {
+        console.error('Failed to fetch books:', error);
+        Swal.fire({
+          title: 'Error',
+          text: 'Failed to load books!',
+          icon: 'error',
+          confirmButtonText: 'Okay',
+        });
+      }
+    };
+
+    getData();
+  }, []);
 
   const handleUpdate = (id: number) => {
     console.log('Update book with id:', id);
   };
 
-  const handleDelete = (id: number) => {
-    console.log('Delete book with id:', id);
+  const handleDelete = async (_id: number) => {
+    const confirmResult = await Swal.fire({
+      title: 'Are you sure?',
+      text: 'Do you really want to delete this book? This action cannot be undone!',
+      icon: 'warning',
+      showCancelButton: true,
+      confirmButtonColor: '#d33',
+      cancelButtonColor: '#3085d6',
+      confirmButtonText: 'Yes, delete it!',
+      cancelButtonText: 'No, cancel!',
+    });
+    if (confirmResult.isConfirmed) {
+      try {
+        const { data } = await axios.delete(
+          `${import.meta.env.VITE_API_URL}/books/${_id}`,
+        );
+        if (data.success) {
+          setItems((prev) => prev.filter((item) => item.id !== _id));
+          Swal.fire({
+            title: 'Deleted!',
+            text: 'Book deleted successfully!',
+            icon: 'success',
+            confirmButtonText: 'Okay',
+          });
+        }
+      } catch (error) {
+        console.error('Failed to delete book:', error);
+        Swal.fire({
+          title: 'Error',
+          text: 'Failed to delete the book!',
+          icon: 'error',
+          confirmButtonText: 'Okay',
+        });
+      }
+    } else {
+      Swal.fire({
+        title: 'Cancelled',
+        text: 'Book deletion was cancelled.',
+        icon: 'info',
+        confirmButtonText: 'Okay',
+      });
+    }
+  };
+  const onSearch = (value: string) => {
+    console.log('Search value:', value);
   };
 
   return (
@@ -55,37 +99,82 @@ const YourList: React.FC = () => {
           justifyContent: 'space-around',
         }}
       >
-        {books.map((book) => (
+        {items.map((book) => (
           <Card
             key={book.id}
             hoverable
-            style={{ width: 240, marginBottom: '2rem' }}
-            cover={<img alt={book.bookName} src={book.coverImage} />}
+            style={{
+              width: 380,
+              borderRadius: '12px',
+              boxShadow: '0 4px 8px rgba(0, 0, 0, 0.1)',
+              overflow: 'hidden',
+            }}
+            cover={
+              <div style={{ padding: '20px', backgroundColor: '#f9f9f9' }}>
+                <img
+                  alt={book.bookName}
+                  src={book.image}
+                  style={{
+                    width: '400px',
+                    height: '400px',
+                    borderRadius: '12px',
+                    objectFit: 'cover',
+                  }}
+                />
+              </div>
+            }
           >
-            <Meta
-              title={book.bookName}
-              description={`By ${book.writerName}`}
-            />
-            <p>{book.description}</p>
-            <div
-              style={{
-                display: 'flex',
-                justifyContent: 'space-between',
-                marginTop: '1rem',
-              }}
-            >
-              <Button
-                icon={<EditOutlined />}
-                shape="circle"
-                onClick={() => handleUpdate(book.id)}
-                style={{ backgroundColor: '#fdbf50', borderColor: '#fdbf50' }}
-              />
-              <Button
-                icon={<DeleteOutlined />}
-                shape="circle"
-                onClick={() => handleDelete(book.id)}
-                style={{ backgroundColor: '#ff4d4f', borderColor: '#ff4d4f' }}
-              />
+            <div style={{ textAlign: 'center', padding: '16px' }}>
+              <h2
+                style={{
+                  fontSize: '18px',
+                  fontWeight: 'bold',
+                  margin: '0 0 8px',
+                }}
+              >
+                {book.bookName}
+              </h2>
+              <p style={{ margin: '0 0 12px', color: '#8c8c8c' }}>
+                By {book.writerName}
+              </p>
+              <p
+                style={{
+                  margin: '0 0 16px',
+                  fontSize: '14px',
+                  color: '#595959',
+                }}
+              >
+                {book.description}
+              </p>
+              <div
+                style={{
+                  display: 'flex',
+                  justifyContent: 'center',
+                  gap: '8px',
+                }}
+              >
+                <Button
+                  type="primary"
+                  icon={<EditOutlined />}
+                  style={{
+                    backgroundColor: '#fdbf50',
+                    borderColor: '#fdbf50',
+                    color: '#fff',
+                  }}
+                  onClick={() => handleUpdate(book.id)}
+                >
+                  Edit
+                </Button>
+                <Button
+                  type="primary"
+                  danger
+                  icon={<DeleteOutlined />}
+                  // eslint-disable-next-line no-underscore-dangle
+                  onClick={() => handleDelete(book._id)}
+                >
+                  Delete
+                </Button>
+              </div>
             </div>
           </Card>
         ))}
