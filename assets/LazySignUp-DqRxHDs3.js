@@ -1,0 +1,2 @@
+const __vite__mapDeps=(i,m=__vite__mapDeps,d=(m.f||(m.f=["./SignUp-ow0_6CUJ.js","./index-Bk5zxu8w.js","./index-BjzCKVlz.js","./index-C-Aoim-w.css","./index-C4yT8H-F.js","./index-BDfk59sF.js"])))=>i.map(i=>d[i]);
+import{r as a,_ as i,j as r}from"./index-BjzCKVlz.js";const o=a.lazy(()=>i(()=>import("./SignUp-ow0_6CUJ.js"),__vite__mapDeps([0,1,2,3,4,5]),import.meta.url)),e=()=>r(a.Suspense,{fallback:r("div",{children:"Loading..."}),children:r(o,{})});export{e as LazySignUp};
