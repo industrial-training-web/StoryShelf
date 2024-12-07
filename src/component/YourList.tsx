@@ -1,3 +1,4 @@
+/* eslint-disable no-underscore-dangle */
 /* eslint-disable no-console */
 import React, { useEffect, useState } from 'react';
 import { Card, Button, Input } from 'antd';
@@ -9,13 +10,13 @@ const { Search } = Input;
 const { Meta } = Card;
 
 const YourList: React.FC = () => {
-  const [items, setItems] = useState<any[]>([]);
+  const [books, setBooks] = useState<any[]>([]);
 
   useEffect(() => {
     const getData = async () => {
       try {
         const { data } = await axios(`${import.meta.env.VITE_API_URL}/books`);
-        setItems(data);
+        setBooks(data);
       } catch (error) {
         console.error('Failed to fetch books:', error);
         Swal.fire({
@@ -51,7 +52,7 @@ const YourList: React.FC = () => {
           `${import.meta.env.VITE_API_URL}/books/${_id}`,
         );
         if (data.success) {
-          setItems((prev) => prev.filter((item) => item.id !== _id));
+          setBooks((prev) => prev.filter((book) => book.id !== _id));
           Swal.fire({
             title: 'Deleted!',
             text: 'Book deleted successfully!',
@@ -99,7 +100,7 @@ const YourList: React.FC = () => {
           justifyContent: 'space-around',
         }}
       >
-        {items.map((book) => (
+        {books.map((book) => (
           <Card
             key={book.id}
             hoverable
@@ -169,7 +170,6 @@ const YourList: React.FC = () => {
                   type="primary"
                   danger
                   icon={<DeleteOutlined />}
-                  // eslint-disable-next-line no-underscore-dangle
                   onClick={() => handleDelete(book._id)}
                 >
                   Delete
