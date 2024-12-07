@@ -1,2 +1,0 @@
-const __vite__mapDeps=(i,m=__vite__mapDeps,d=(m.f||(m.f=["./AddBook-CwgZFmo-.js","./index-SBqUW6O1.js","./index-C-Aoim-w.css","./sweetalert2.esm.all-pwe647nV.js","./index-CMLFw6rI.js","./index-6f6r11dW.js"])))=>i.map(i=>d[i]);
-import{r,_ as t,j as o}from"./index-SBqUW6O1.js";const a=r.lazy(()=>t(()=>import("./AddBook-CwgZFmo-.js"),__vite__mapDeps([0,1,2,3,4,5]),import.meta.url)),e=()=>o(r.Suspense,{fallback:o("div",{children:"Loading..."}),children:o(a,{})});export{e as Addbook};
