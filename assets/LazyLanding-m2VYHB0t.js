@@ -1,2 +1,0 @@
-const __vite__mapDeps=(i,m=__vite__mapDeps,d=(m.f||(m.f=["./Landing-CpIHCqaX.js","./index-BjzCKVlz.js","./index-C-Aoim-w.css","./Landing-ZLdXyOpI.css"])))=>i.map(i=>d[i]);
-import{r,_ as i,j as a}from"./index-BjzCKVlz.js";const o=r.lazy(()=>i(()=>import("./Landing-CpIHCqaX.js"),__vite__mapDeps([0,1,2,3]),import.meta.url)),e=()=>a(r.Suspense,{fallback:a("div",{children:"Loading..."}),children:a(o,{})});export{e as LazyLanding};
