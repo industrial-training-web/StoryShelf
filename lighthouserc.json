@@ -2,7 +2,7 @@
   "ci": {
     "collect": {
       "numberOfRuns": 2,
-      "url": ["http://localhost:3000/StoryShelf/"]
+      "url": ["http://localhost:3000/StoryShelf"]
     },
     "output": [
       "html",
