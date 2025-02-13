@@ -1,0 +1,2 @@
+const __vite__mapDeps=(i,m=__vite__mapDeps,d=(m.f||(m.f=["./YourList-lhby4XwU.js","./index-C_HWHm5u.js","./index-C-Aoim-w.css","./sweetalert2.esm.all-CPaHPaq9.js","./index-BvD6Ti_R.js"])))=>i.map(i=>d[i]);
+import{r as o,_ as t,j as r}from"./index-C_HWHm5u.js";const a=o.lazy(()=>t(()=>import("./YourList-lhby4XwU.js"),__vite__mapDeps([0,1,2,3,4]),import.meta.url)),s=()=>r(o.Suspense,{fallback:r("div",{children:"Loading..."}),children:r(a,{})});export{s as LazyYourList};
